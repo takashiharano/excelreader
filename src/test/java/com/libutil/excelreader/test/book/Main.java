@@ -8,7 +8,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.libutil.excelreader.ExcelLoader;
 import com.libutil.excelreader.LoadingListener;
-import com.libutil.excelreader.test.book.model.Sheet1Record;
 import com.libutil.excelreader.test.book.model.Sheet1RecordMap;
 import com.libutil.excelreader.test.book.parser.Sheet1Parser;
 
@@ -57,7 +56,7 @@ public class Main {
   }
 
   private String buildFileErrorMessage(ArrayList<String> errFiles) {
-    StringBuilder sb = new StringBuilder("Spefcification file not found: ");
+    StringBuilder sb = new StringBuilder("File not found: ");
     for (int i = 0; i < errFiles.size(); i++) {
       if (i > 0) {
         sb.append(", ");
@@ -78,10 +77,6 @@ public class Main {
 
   public Sheet1RecordMap getAllRecords() {
     return sheet1RecordMap;
-  }
-
-  public Sheet1Record getIddMessage(String key) {
-    return sheet1RecordMap.get(key);
   }
 
   private void onLoadStart(String name) {
