@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Map.Entry;
 
 import com.libutil.excelreader.LoadingListener;
+import com.libutil.excelreader.test.book.Book1;
 import com.libutil.excelreader.test.book.ExcelLoadingListener;
-import com.libutil.excelreader.test.book.Main;
 import com.libutil.excelreader.test.book.model.Sheet1Record;
 import com.libutil.excelreader.test.book.model.Sheet1RecordMap;
 
@@ -15,16 +15,16 @@ public class Tester {
     LoadingListener listener = new ExcelLoadingListener();
     String bookPath = "C:/test/Book1.xlsx";
     try {
-      Main m = new Main(bookPath, listener);
-      test(m);
+      Book1 book1 = new Book1(bookPath, listener);
+      test(book1);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  private static void test(Main m) {
+  private static void test(Book1 book1) {
     StringBuilder sb = new StringBuilder();
-    Sheet1RecordMap map = m.getAllRecords();
+    Sheet1RecordMap map = book1.getAllRecords();
 
     for (Entry<String, Sheet1Record> entry : map.entrySet()) {
       Sheet1Record record = entry.getValue();

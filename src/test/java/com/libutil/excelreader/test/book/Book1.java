@@ -11,7 +11,7 @@ import com.libutil.excelreader.LoadingListener;
 import com.libutil.excelreader.test.book.model.Sheet1RecordMap;
 import com.libutil.excelreader.test.book.parser.Sheet1Parser;
 
-public class Main {
+public class Book1 {
 
   private String bookPath;;
 
@@ -21,11 +21,11 @@ public class Main {
   // The model objects of the specifications
   private Sheet1RecordMap sheet1RecordMap;
 
-  public Main(String bookPath) throws IOException {
+  public Book1(String bookPath) throws IOException {
     this(bookPath, null);
   }
 
-  public Main(String bookPath, LoadingListener loadingListener) throws IOException {
+  public Book1(String bookPath, LoadingListener loadingListener) throws IOException {
     this.bookPath = bookPath;
     this.loadingListener = loadingListener;
     loadSpecifications();
