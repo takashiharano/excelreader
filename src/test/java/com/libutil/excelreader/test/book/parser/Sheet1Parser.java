@@ -5,8 +5,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.libutil.excelreader.ExcelLoader;
 import com.libutil.excelreader.SheetRow;
 import com.libutil.excelreader.SheetValues;
-import com.libutil.excelreader.test.book.model.Sheet1Record;
-import com.libutil.excelreader.test.book.model.Sheet1RecordMap;
+import com.libutil.excelreader.test.book.model.Sheet1Values;
+import com.libutil.excelreader.test.book.model.Sheet1ValuesMap;
 
 /**
  * The Sheet1 parser.
@@ -16,7 +16,7 @@ public class Sheet1Parser {
   // Sheet structure
   public static final String SHEET_NAME = "Sheet1";
   public static final int DEFINITION_START_ROW = 2;
-  public static final int DEFINITION_LAST_ROW = 4;
+  public static final int DEFINITION_LAST_ROW = 0; // Auto detection
   public static final String COL_INDEX_NO = "A";
   public static final String COL_INDEX_KEY = "B";
   public static final String COL_INDEX_ITEM_A = "C";
@@ -29,24 +29,24 @@ public class Sheet1Parser {
    *
    * @param workbook
    *          the Excel book object
-   * @return the record object map
+   * @return the values object map
    */
-  public Sheet1RecordMap parse(XSSFWorkbook workbook) {
+  public Sheet1ValuesMap parse(XSSFWorkbook workbook) {
     // Open the book and read the values.
     SheetValues sheetRows = ExcelLoader.loadSheetValues(workbook, SHEET_NAME, DEFINITION_LAST_ROW, LAST_COL_INDEX);
 
-    Sheet1RecordMap recordMap = new Sheet1RecordMap();
+    Sheet1ValuesMap valuesMap = new Sheet1ValuesMap();
 
     // Loop the row of Sheet
     for (int i = DEFINITION_START_ROW; i <= sheetRows.size(); i++) {
       SheetRow row = sheetRows.getRow(i);
-      Sheet1Record record = parseRow(row);
+      Sheet1Values values = parseRow(row);
 
-      String key = record.getKey();
-      recordMap.put(key, record);
+      String key = values.getKey();
+      valuesMap.put(key, values);
     }
 
-    return recordMap;
+    return valuesMap;
   }
 
   /**
@@ -56,35 +56,35 @@ public class Sheet1Parser {
    *          Array of values in Row
    * @return values object
    */
-  private Sheet1Record parseRow(SheetRow row) {
+  private Sheet1Values parseRow(SheetRow row) {
     String strNo = row.getValue(COL_INDEX_NO);
     if ((strNo == null) || strNo.trim().equals("")) {
       return null;
     }
 
-    Sheet1Record record = new Sheet1Record();
+    Sheet1Values values = new Sheet1Values();
 
     // COL: No
     int no = row.getIntValue(COL_INDEX_NO);
-    record.setNo(no);
+    values.setNo(no);
 
     // COL: ItemA
     String key = row.getValue(COL_INDEX_KEY);
-    record.setKey(key);
+    values.setKey(key);
 
     // COL: ItemA
     String itemA = row.getValue(COL_INDEX_ITEM_A);
-    record.setItemA(itemA);
+    values.setItemA(itemA);
 
     // COL: ItemB
     String itemB = row.getValue(COL_INDEX_ITEM_B);
-    record.setItemB(itemB);
+    values.setItemB(itemB);
 
     // COL: ItemC
     String itemC = row.getValue(COL_INDEX_ITEM_C);
-    record.setItemC(itemC);
+    values.setItemC(itemC);
 
-    return record;
+    return values;
   }
 
 }

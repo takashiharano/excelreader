@@ -1,6 +1,6 @@
 package com.libutil.excelreader.test.book.model;
 
-public class Sheet1Record {
+public class Sheet1Values {
 
   private int no;
   private String key;
@@ -8,7 +8,7 @@ public class Sheet1Record {
   private String itemB;
   private String itemC;
 
-  public Sheet1Record() {
+  public Sheet1Values() {
     super();
   }
 

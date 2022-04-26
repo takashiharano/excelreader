@@ -8,40 +8,40 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.libutil.excelreader.ExcelLoader;
 import com.libutil.excelreader.LoadingListener;
-import com.libutil.excelreader.test.book.model.Sheet1RecordMap;
+import com.libutil.excelreader.test.book.model.Sheet1ValuesMap;
 import com.libutil.excelreader.test.book.parser.Sheet1Parser;
 
 public class Book1 {
 
-  private String bookPath;;
+  private String bookPath1;
 
-  // Loading listener of specification File
+  // Loading listener of book File
   private LoadingListener loadingListener;
 
-  // The model objects of the specifications
-  private Sheet1RecordMap sheet1RecordMap;
+  // The model objects of the book/sheet
+  private Sheet1ValuesMap sheet1ValuesMap;
 
   public Book1(String bookPath) throws IOException {
     this(bookPath, null);
   }
 
-  public Book1(String bookPath, LoadingListener loadingListener) throws IOException {
-    this.bookPath = bookPath;
+  public Book1(String bookPath1, LoadingListener loadingListener) throws IOException {
+    this.bookPath1 = bookPath1;
     this.loadingListener = loadingListener;
-    loadSpecifications();
+    loadBookFiles();
   }
 
-  private void loadSpecifications() throws IOException {
-    // Specification file existence check
+  private void loadBookFiles() throws IOException {
+    // Book file existence check
     ArrayList<String> errFiles = new ArrayList<>();
-    fileCheck(errFiles, bookPath);
+    fileCheck(errFiles, bookPath1);
     if (errFiles.size() > 0) {
       String errMessage = buildFileErrorMessage(errFiles);
       throw new IOException(errMessage);
     }
 
     onLoadStart("Book1");
-    loadBook1(bookPath);
+    loadBook1(bookPath1);
     onLoadComplete("Book1");
 
     // Processes what refers to information across the board here.
@@ -69,14 +69,14 @@ public class Book1 {
   private void loadBook1(String specFilePath) throws IOException {
     XSSFWorkbook workbook = ExcelLoader.openBook(specFilePath);
 
-    Sheet1Parser sheet1Parser = new Sheet1Parser();
-    this.sheet1RecordMap = sheet1Parser.parse(workbook);
+    Sheet1Parser parser = new Sheet1Parser();
+    this.sheet1ValuesMap = parser.parse(workbook);
 
     workbook.close();
   }
 
-  public Sheet1RecordMap getAllRecords() {
-    return sheet1RecordMap;
+  public Sheet1ValuesMap getAllValues() {
+    return sheet1ValuesMap;
   }
 
   private void onLoadStart(String name) {

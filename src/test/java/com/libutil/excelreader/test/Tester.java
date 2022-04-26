@@ -6,16 +6,16 @@ import java.util.Map.Entry;
 import com.libutil.excelreader.LoadingListener;
 import com.libutil.excelreader.test.book.Book1;
 import com.libutil.excelreader.test.book.ExcelLoadingListener;
-import com.libutil.excelreader.test.book.model.Sheet1Record;
-import com.libutil.excelreader.test.book.model.Sheet1RecordMap;
+import com.libutil.excelreader.test.book.model.Sheet1Values;
+import com.libutil.excelreader.test.book.model.Sheet1ValuesMap;
 
 public class Tester {
 
   public static void main(String args[]) {
+    String path = "C:/test/Book1.xlsx";
     LoadingListener listener = new ExcelLoadingListener();
-    String bookPath = "C:/test/Book1.xlsx";
     try {
-      Book1 book1 = new Book1(bookPath, listener);
+      Book1 book1 = new Book1(path, listener);
       test(book1);
     } catch (IOException e) {
       e.printStackTrace();
@@ -24,15 +24,15 @@ public class Tester {
 
   private static void test(Book1 book1) {
     StringBuilder sb = new StringBuilder();
-    Sheet1RecordMap map = book1.getAllRecords();
+    Sheet1ValuesMap map = book1.getAllValues();
 
-    for (Entry<String, Sheet1Record> entry : map.entrySet()) {
-      Sheet1Record record = entry.getValue();
-      int no = record.getNo();
-      String key = record.getKey();
-      String itemA = record.getItemA();
-      String itemB = record.getItemB();
-      String itemC = record.getItemC();
+    for (Entry<String, Sheet1Values> entry : map.entrySet()) {
+      Sheet1Values values = entry.getValue();
+      int no = values.getNo();
+      String key = values.getKey();
+      String itemA = values.getItemA();
+      String itemB = values.getItemB();
+      String itemC = values.getItemC();
 
       sb.append("No=" + no);
       sb.append("\t");
