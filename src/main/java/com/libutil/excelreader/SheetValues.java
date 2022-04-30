@@ -54,10 +54,123 @@ public class SheetValues extends ArrayList<SheetRow> {
    * @return The value of the cell
    */
   public String getValue(String col, int row) {
+    int colIndex = ExcelStringUtil.xlscol(col);
+    return getValue(colIndex, row);
+  }
+
+  /**
+   * Returns the value of the cell corresponding to the position specified by col
+   * and row.
+   *
+   * @param col
+   *          The position of column (1-16384)
+   * @param row
+   *          The index of row (1-1048576)
+   * @return The value of the cell
+   */
+  public String getValue(int col, int row) {
     int rowIndex = row - 1;
-    int colIndex = ExcelStringUtil.xlscol(col) - 1;
-    ArrayList<String> cols = get(rowIndex);
+    int colIndex = col - 1;
+    SheetRow cols = get(rowIndex);
     return cols.get(colIndex);
+  }
+
+  /**
+   * Returns the value of the cell corresponding to the position specified by col
+   * and row as an integer.
+   *
+   * @param col
+   *          The position of column (A-XFD)
+   * @param row
+   *          The index of row (1-1048576)
+   * @return The value of the cell
+   */
+  public int getIntValue(String col, int row) {
+    String s = getValue(col, row);
+    int v = ExcelStringUtil.toInteger(s);
+    return v;
+  }
+
+  /**
+   * Returns the value of the cell corresponding to the position specified by col
+   * and row as an integer.
+   *
+   * @param col
+   *          The position of column (1-16384)
+   * @param row
+   *          The index of row (1-1048576)
+   * @return The value of the cell
+   */
+  public int getIntValue(int col, int row) {
+    String s = getValue(col, row);
+    int v = ExcelStringUtil.toInteger(s);
+    return v;
+  }
+
+  /**
+   * Returns the value of the cell corresponding to the position specified by col
+   * and row as a long.
+   *
+   * @param col
+   *          The position of column (A-XFD)
+   * @param row
+   *          The index of row (1-1048576)
+   * @return The value of the cell
+   */
+  public long getLongValue(String col, int row) {
+    String s = getValue(col, row);
+    long v = ExcelStringUtil.toLong(s);
+    return v;
+  }
+
+  /**
+   * Returns the value of the cell corresponding to the position specified by col
+   * and row as a long.
+   *
+   * @param col
+   *          The position of column (1-16384)
+   * @param row
+   *          The index of row (1-1048576)
+   * @return The value of the cell
+   */
+  public long getLongValue(int col, int row) {
+    String s = getValue(col, row);
+    long v = ExcelStringUtil.toLong(s);
+    return v;
+  }
+
+  /**
+   * Returns if the cell value at the column position is empty.
+   *
+   * @param col
+   *          The position of column (A-XFD)
+   * @param row
+   *          The index of row (1-1048576)
+   * @return true if the value is empty
+   */
+  public boolean isEmpty(String col, int row) {
+    String s = getValue(col, row);
+    if ((s == null) || ("".equals(s))) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the cell value at the column position is empty.
+   *
+   * @param col
+   *          The position of column (1-16384)
+   * @param row
+   *          The index of row (1-1048576)
+   * @return true if the value is empty
+   */
+  public boolean isEmpty(int col, int row) {
+    String s = getValue(col, row);
+    if ((s == null) || ("".equals(s))) {
+      return true;
+    }
+    return false;
   }
 
 }

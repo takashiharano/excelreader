@@ -42,8 +42,10 @@ public class Sheet1Parser {
       SheetRow row = sheetRows.getRow(i);
       Sheet1Values values = parseRow(row);
 
-      String key = values.getKey();
-      valuesMap.put(key, values);
+      if (values != null) {
+        String key = values.getKey();
+        valuesMap.put(key, values);
+      }
     }
 
     return valuesMap;
@@ -57,8 +59,7 @@ public class Sheet1Parser {
    * @return values object
    */
   private Sheet1Values parseRow(SheetRow row) {
-    String strNo = row.getValue(COL_INDEX_NO);
-    if ((strNo == null) || strNo.trim().equals("")) {
+    if (row.isEmpty(COL_INDEX_NO)) {
       return null;
     }
 

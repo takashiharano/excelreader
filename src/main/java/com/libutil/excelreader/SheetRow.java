@@ -112,4 +112,34 @@ public class SheetRow extends ArrayList<String> {
     return ExcelStringUtil.toLong(value);
   }
 
+  /**
+   * Returns if the cell value at the column position is empty.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @return true if the value is empty
+   */
+  public boolean isEmpty(String colIndex) {
+    String s = getValue(colIndex);
+    if ((s == null) || ("".equals(s))) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the cell value at the column position is empty.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @return true if the value is empty
+   */
+  public boolean isEmpty(int colIndex) {
+    String s = getValue(colIndex);
+    if ((s == null) || ("".equals(s))) {
+      return true;
+    }
+    return false;
+  }
+
 }
