@@ -67,6 +67,40 @@ public class ExcelStringUtil {
   }
 
   /**
+   * Converts a string to a signed decimal integer.
+   *
+   * @param s
+   *          a string value
+   * @return an integer value
+   */
+  public static long toLong(String s) {
+    return toLong(s, 0L);
+  }
+
+  /**
+   * Converts a string to a signed decimal long.
+   *
+   * @param s
+   *          a string value
+   * @param defaultValue
+   *          value for parse error
+   * @return a long value
+   */
+  public static long toLong(String s, long defaultValue) {
+    if (s == null) {
+      return defaultValue;
+    }
+    s = s.trim();
+    long v = defaultValue;
+    try {
+      v = Long.parseLong(s);
+    } catch (NumberFormatException e) {
+      // nop
+    }
+    return v;
+  }
+
+  /**
    * Converts the Excel column letter to a numeric index.<br>
    * <br>
    * e.g., "A"=1, "B"=2, ... "Z"=26, "AA"=27, ... "XFD"=16384

@@ -65,7 +65,7 @@ public class SheetRow extends ArrayList<String> {
   }
 
   /**
-   * Returns the cell value at the column position as a number.
+   * Returns the cell value at the column position as an integer.
    *
    * @param colIndex
    *          The column position (A-XFD)
@@ -77,7 +77,7 @@ public class SheetRow extends ArrayList<String> {
   }
 
   /**
-   * Returns the cell value at the column position as a number.
+   * Returns the cell value at the column position as an integer.
    *
    * @param colIndex
    *          The column position (1-16384)
@@ -86,6 +86,30 @@ public class SheetRow extends ArrayList<String> {
   public int getIntValue(int colIndex) {
     String value = getValue(colIndex);
     return ExcelStringUtil.toInteger(value);
+  }
+
+  /**
+   * Returns the cell value at the column position as a long.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @return The value of the cell
+   */
+  public long getLongValue(String colIndex) {
+    String value = getValue(colIndex);
+    return ExcelStringUtil.toLong(value);
+  }
+
+  /**
+   * Returns the cell value at the column position as a long.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @return The value of the cell
+   */
+  public long getLongValue(int colIndex) {
+    String value = getValue(colIndex);
+    return ExcelStringUtil.toLong(value);
   }
 
 }
