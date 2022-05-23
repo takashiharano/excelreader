@@ -23,6 +23,10 @@ public class Tester {
   }
 
   private static void test(Book1 book1) {
+    dumpValues(book1);
+  }
+
+  private static void dumpValues(Book1 book1) {
     StringBuilder sb = new StringBuilder();
     Sheet1ValuesMap map = book1.getAllValues();
 

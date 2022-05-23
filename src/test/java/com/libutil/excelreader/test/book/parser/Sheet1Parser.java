@@ -3,6 +3,7 @@ package com.libutil.excelreader.test.book.parser;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.libutil.excelreader.ExcelLoader;
+import com.libutil.excelreader.Cell;
 import com.libutil.excelreader.SheetRow;
 import com.libutil.excelreader.SheetValues;
 import com.libutil.excelreader.test.book.model.Sheet1Values;
@@ -59,6 +60,7 @@ public class Sheet1Parser {
    * @return values object
    */
   private Sheet1Values parseRow(SheetRow row) {
+    test(row);
     if (row.isEmpty(COL_INDEX_NO)) {
       return null;
     }
@@ -86,6 +88,55 @@ public class Sheet1Parser {
     values.setItemC(itemC);
 
     return values;
+  }
+
+  private void test(SheetRow row) {
+    String bgColor;
+    String fgColor;
+    String formula;
+
+    StringBuilder sb = new StringBuilder();
+
+    Cell cell = row.getCell(COL_INDEX_NO);
+    fgColor = cell.getFontColorRGBHex();
+    bgColor = cell.getBackgroundColorRGBHex();
+    formula = cell.getFormula();
+    sb.append("fg=" + fgColor + "/bg=" + bgColor);
+    sb.append("/formula=" + formula);
+    sb.append(" ");
+
+    cell = row.getCell(COL_INDEX_KEY);
+    fgColor = cell.getFontColorRGBHex();
+    bgColor = cell.getBackgroundColorRGBHex();
+    formula = cell.getFormula();
+    sb.append("fg=" + fgColor + "/bg=" + bgColor);
+    sb.append("/formula=" + formula);
+    sb.append(" ");
+
+    cell = row.getCell(COL_INDEX_ITEM_A);
+    fgColor = cell.getFontColorRGBHex();
+    bgColor = cell.getBackgroundColorRGBHex();
+    formula = cell.getFormula();
+    sb.append("fg=" + fgColor + "/bg=" + bgColor);
+    sb.append("/formula=" + formula);
+    sb.append(" ");
+
+    cell = row.getCell(COL_INDEX_ITEM_B);
+    fgColor = cell.getFontColorRGBHex();
+    bgColor = cell.getBackgroundColorRGBHex();
+    formula = cell.getFormula();
+    sb.append("fg=" + fgColor + "/bg=" + bgColor);
+    sb.append("/formula=" + formula);
+    sb.append(" ");
+
+    cell = row.getCell(COL_INDEX_ITEM_C);
+    fgColor = cell.getFontColorRGBHex();
+    bgColor = cell.getBackgroundColorRGBHex();
+    formula = cell.getFormula();
+    sb.append("fg=" + fgColor + "/bg=" + bgColor);
+    sb.append("/formula=" + formula);
+
+    System.out.println(sb);
   }
 
 }

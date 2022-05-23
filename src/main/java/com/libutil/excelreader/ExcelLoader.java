@@ -30,6 +30,9 @@ import java.io.IOException;
 import org.apache.poi.hssf.usermodel.HSSFDataFormatter;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -102,41 +105,37 @@ public class ExcelLoader {
     }
     SheetValues rows = new SheetValues();
     int emptyRows = 0;
+    Cell cell;
     for (int i = 0; i <= lastRowIndex; i++) {
       SheetRow row = new SheetRow();
       XSSFRow xssRow = sheet.getRow(i);
+
       if (xssRow == null) {
         if (lastCol != null) {
           int lastCellNum = ExcelStringUtil.xlscol(lastCol);
           for (int j = 0; j < lastCellNum; j++) {
-            row.add("");
+            cell = parseCell(null);
+            row.add(cell);
           }
         }
         rows.add(row);
         emptyRows++;
         continue;
       }
+
       int lastCellNum = xssRow.getLastCellNum();
       if (lastCol != null) {
         lastCellNum = ExcelStringUtil.xlscol(lastCol);
       }
+
       int valExists = 0;
       for (int j = 0; j < lastCellNum; j++) {
-        XSSFCell cell = xssRow.getCell(j);
-        if (cell == null) {
-          row.add("");
-          continue;
-        }
-        HSSFDataFormatter hdf = new HSSFDataFormatter();
-        String cellString = hdf.formatCellValue(cell);
-        CellType cellType = cell.getCellType();
-        if ((org.apache.poi.ss.usermodel.CellType.FORMULA).equals(cellType)) {
-          cellString = cell.getRawValue();
-        }
-        if (!"".equals(cellString)) {
+        XSSFCell xssFcell = xssRow.getCell(j);
+        cell = parseCell(xssFcell);
+        row.add(cell);
+        if ((xssFcell != null) && (!"".equals(cell.getValue()))) {
           valExists++;
         }
-        row.add(cellString);
       }
       rows.add(row);
 
@@ -155,6 +154,50 @@ public class ExcelLoader {
     }
 
     return rows;
+  }
+
+  private static Cell parseCell(XSSFCell xssFcell) {
+    Cell cell = new Cell();
+    cell.setXssFcell(xssFcell);
+
+    if (xssFcell == null) {
+      cell = new Cell();
+      cell.setXssFcell(null);
+      cell.setValue("");
+      return cell;
+    }
+
+    HSSFDataFormatter hdf = new HSSFDataFormatter();
+    String cellString = hdf.formatCellValue(xssFcell);
+    CellType cellType = xssFcell.getCellType();
+    if ((CellType.FORMULA).equals(cellType)) {
+      cellString = xssFcell.getRawValue();
+      String formula = xssFcell.getCellFormula();
+      cell.setFormula(formula);
+    }
+    cell.setValue(cellString);
+
+    XSSFCellStyle style = xssFcell.getCellStyle();
+
+    XSSFColor bgColor = style.getFillForegroundXSSFColor();
+    String bgColorRGBHex = getRGBHex(bgColor);
+    cell.setBackgroundColorRGBHex(bgColorRGBHex);
+
+    XSSFFont font = style.getFont();
+    XSSFColor fontColor = font.getXSSFColor();
+    String fontColorRGBHex = getRGBHex(fontColor);
+    cell.setFontColorRGBHex(fontColorRGBHex);
+
+    return cell;
+  }
+
+  private static String getRGBHex(XSSFColor color) {
+    String rgbHex = null;
+    if (color != null) {
+      rgbHex = color.getARGBHex();
+      rgbHex = rgbHex.substring(2);
+    }
+    return rgbHex;
   }
 
 }

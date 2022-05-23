@@ -28,9 +28,41 @@ import java.util.ArrayList;
 /**
  * This class stores the data for one line of Excel.
  */
-public class SheetRow extends ArrayList<String> {
+public class SheetRow extends ArrayList<Cell> {
 
   private static final long serialVersionUID = 1L;
+
+  /**
+   * Returns the cell object at the column position.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @return The cell object
+   */
+  public Cell getCell(String colIndex) {
+    int index = ExcelStringUtil.xlscol(colIndex);
+    return getCell(index);
+  }
+
+  /**
+   * Returns the cell object at the column position.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @return The cell object
+   */
+  public Cell getCell(int colIndex) {
+    int index = colIndex - 1;
+    Cell cell;
+    try {
+      cell = get(index);
+    } catch (Exception e) {
+      int listSize = this.size();
+      String lastCol = ExcelStringUtil.xlscol(listSize);
+      throw new RuntimeException("Get cell error: col=" + colIndex + " last col=" + lastCol, e);
+    }
+    return cell;
+  }
 
   /**
    * Returns the cell value at the column position.
@@ -53,14 +85,8 @@ public class SheetRow extends ArrayList<String> {
    */
   public String getValue(int colIndex) {
     int index = colIndex - 1;
-    String value = null;
-    try {
-      value = get(index);
-    } catch (Exception e) {
-      int listSize = this.size();
-      String lastCol = ExcelStringUtil.xlscol(listSize);
-      throw new RuntimeException("Get cell error: col=" + colIndex + " last col=" + lastCol, e);
-    }
+    Cell cell = getCell(index);
+    String value = cell.getValue();
     return value;
   }
 
@@ -72,8 +98,8 @@ public class SheetRow extends ArrayList<String> {
    * @return The value of the cell
    */
   public int getIntValue(String colIndex) {
-    String value = getValue(colIndex);
-    return ExcelStringUtil.toInteger(value);
+    Cell cell = getCell(colIndex);
+    return cell.getIntValue();
   }
 
   /**
@@ -84,8 +110,8 @@ public class SheetRow extends ArrayList<String> {
    * @return The value of the cell
    */
   public int getIntValue(int colIndex) {
-    String value = getValue(colIndex);
-    return ExcelStringUtil.toInteger(value);
+    Cell cell = getCell(colIndex);
+    return cell.getIntValue();
   }
 
   /**
@@ -96,8 +122,8 @@ public class SheetRow extends ArrayList<String> {
    * @return The value of the cell
    */
   public long getLongValue(String colIndex) {
-    String value = getValue(colIndex);
-    return ExcelStringUtil.toLong(value);
+    Cell cell = getCell(colIndex);
+    return cell.getLongValue();
   }
 
   /**
@@ -108,8 +134,8 @@ public class SheetRow extends ArrayList<String> {
    * @return The value of the cell
    */
   public long getLongValue(int colIndex) {
-    String value = getValue(colIndex);
-    return ExcelStringUtil.toLong(value);
+    Cell cell = getCell(colIndex);
+    return cell.getLongValue();
   }
 
   /**
@@ -120,11 +146,8 @@ public class SheetRow extends ArrayList<String> {
    * @return true if the value is empty
    */
   public boolean isEmpty(String colIndex) {
-    String s = getValue(colIndex);
-    if ((s == null) || ("".equals(s))) {
-      return true;
-    }
-    return false;
+    Cell cell = getCell(colIndex);
+    return cell.isEmpty();
   }
 
   /**
@@ -135,11 +158,8 @@ public class SheetRow extends ArrayList<String> {
    * @return true if the value is empty
    */
   public boolean isEmpty(int colIndex) {
-    String s = getValue(colIndex);
-    if ((s == null) || ("".equals(s))) {
-      return true;
-    }
-    return false;
+    Cell cell = getCell(colIndex);
+    return cell.isEmpty();
   }
 
 }
