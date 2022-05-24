@@ -69,10 +69,8 @@ public class SheetValues extends ArrayList<SheetRow> {
    * @return The cell object
    */
   public Cell getCell(int col, int row) {
-    int rowIndex = row - 1;
-    int colIndex = col - 1;
-    SheetRow cols = get(rowIndex);
-    return cols.getCell(colIndex);
+    SheetRow cols = get(row - 1);
+    return cols.getCell(col);
   }
 
   /**

@@ -58,8 +58,10 @@ public class SheetRow extends ArrayList<Cell> {
       cell = get(index);
     } catch (Exception e) {
       int listSize = this.size();
+      String strCol = ExcelStringUtil.xlscol(colIndex);
       String lastCol = ExcelStringUtil.xlscol(listSize);
-      throw new RuntimeException("Get cell error: col=" + colIndex + " last col=" + lastCol, e);
+      String msg = "Get cell error: col=" + colIndex + "(" + strCol + ") : last col=" + listSize + "(" + lastCol + ")";
+      throw new RuntimeException(msg, e);
     }
     return cell;
   }
@@ -84,8 +86,7 @@ public class SheetRow extends ArrayList<Cell> {
    * @return The value of the cell
    */
   public String getValue(int colIndex) {
-    int index = colIndex - 1;
-    Cell cell = getCell(index);
+    Cell cell = getCell(colIndex);
     String value = cell.getValue();
     return value;
   }
