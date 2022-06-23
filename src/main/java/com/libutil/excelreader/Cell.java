@@ -71,6 +71,64 @@ public class Cell {
   }
 
   /**
+   * Returns the value of the cell as a boolean.
+   *
+   * @param trueValue
+   *          the string that is considered true
+   * @return true if the value is equal to trueValue; false otherwise
+   */
+  public boolean getBooleanValue(String trueValue) {
+    if (value == null) {
+      return false;
+    }
+    return value.equals(trueValue);
+  }
+
+  /**
+   * Returns the value of the cell as a double.
+   *
+   * @return The value of the cell
+   */
+  public double getDoubleValue() {
+    double v = ExcelStringUtil.toDouble(value);
+    return v;
+  }
+
+  /**
+   * Returns the value of the cell as a double.
+   *
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public double getDoubleValue(double defaultValue) {
+    double v = ExcelStringUtil.toDouble(value, defaultValue);
+    return v;
+  }
+
+  /**
+   * Returns the value of the cell as a float.
+   *
+   * @return The value of the cell
+   */
+  public float getFloatValue() {
+    float v = ExcelStringUtil.toFloat(value);
+    return v;
+  }
+
+  /**
+   * Returns the value of the cell as a float.
+   *
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public float getFloatValue(float defaultValue) {
+    float v = ExcelStringUtil.toFloat(value, defaultValue);
+    return v;
+  }
+
+  /**
    * Returns the value of the cell as an integer.
    *
    * @return The value of the cell
@@ -81,12 +139,36 @@ public class Cell {
   }
 
   /**
+   * Returns the value of the cell as an integer.
+   *
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public int getIntValue(int defaultValue) {
+    int v = ExcelStringUtil.toInteger(value, defaultValue);
+    return v;
+  }
+
+  /**
    * Returns the value of the cell as a long.
    *
    * @return The value of the cell
    */
   public long getLongValue() {
     long v = ExcelStringUtil.toLong(value);
+    return v;
+  }
+
+  /**
+   * Returns the value of the cell as a long.
+   *
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public long getLongValue(long defaultValue) {
+    long v = ExcelStringUtil.toLong(value, defaultValue);
     return v;
   }
 
@@ -144,6 +226,18 @@ public class Cell {
   }
 
   /**
+   * Returns if the cell has font color.
+   *
+   * @return true if the cell has font color
+   */
+  public boolean hasFontColor() {
+    if ("000000".equals(fontColorRGBHex)) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * Returns the background RGB value in hex format.
    *
    * @return the RGB value in hex string format, eg FF0000.
@@ -160,6 +254,18 @@ public class Cell {
    */
   public void setBackgroundColorRGBHex(String backgroundColorRGBHex) {
     this.backgroundColorRGBHex = backgroundColorRGBHex;
+  }
+
+  /**
+   * Returns if the cell has background color.
+   *
+   * @return true if the cell has background color
+   */
+  public boolean hasBackgroundColor() {
+    if (backgroundColorRGBHex == null) {
+      return false;
+    }
+    return true;
   }
 
 }

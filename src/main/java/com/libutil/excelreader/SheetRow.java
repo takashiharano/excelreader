@@ -96,6 +96,138 @@ public class SheetRow extends ArrayList<Cell> {
    *
    * @param colIndex
    *          The column position (A-XFD)
+   * @param trueValue
+   *          the string that is considered true
+   * @return true if the value is equal to trueValue; false otherwise
+   */
+  public boolean getBooleanValue(String colIndex, String trueValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getBooleanValue(trueValue);
+  }
+
+  /**
+   * Returns the cell value at the column position as an integer.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @param trueValue
+   *          the string that is considered true
+   * @return true if the value is equal to trueValue; false otherwise
+   */
+  public boolean getBooleanValue(int colIndex, String trueValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getBooleanValue(trueValue);
+  }
+
+  /**
+   * Returns the cell value at the column position as a double.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @return The value of the cell
+   */
+  public double getDoubleValue(String colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.getDoubleValue();
+  }
+
+  /**
+   * Returns the cell value at the column position as a double.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @return The value of the cell
+   */
+  public double getDoubleValue(int colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.getDoubleValue();
+  }
+
+  /**
+   * Returns the cell value at the column position as a double.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public double getDoubleValue(String colIndex, double defaultValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getDoubleValue(defaultValue);
+  }
+
+  /**
+   * Returns the cell value at the column position as a double.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public double getDoubleValue(int colIndex, double defaultValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getDoubleValue(defaultValue);
+  }
+
+  /**
+   * Returns the cell value at the column position as a float.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @return The value of the cell
+   */
+  public float getFloatValue(String colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.getFloatValue();
+  }
+
+  /**
+   * Returns the cell value at the column position as a float.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @return The value of the cell
+   */
+  public float getFloatValue(int colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.getFloatValue();
+  }
+
+  /**
+   * Returns the cell value at the column position as a float.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public float getFloatValue(String colIndex, float defaultValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getFloatValue(defaultValue);
+  }
+
+  /**
+   * Returns the cell value at the column position as a float.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public float getFloatValue(int colIndex, float defaultValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getFloatValue(defaultValue);
+  }
+
+  /**
+   * Returns the cell value at the column position as an integer.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
    * @return The value of the cell
    */
   public int getIntValue(String colIndex) {
@@ -113,6 +245,34 @@ public class SheetRow extends ArrayList<Cell> {
   public int getIntValue(int colIndex) {
     Cell cell = getCell(colIndex);
     return cell.getIntValue();
+  }
+
+  /**
+   * Returns the cell value at the column position as an integer.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public int getIntValue(String colIndex, int defaultValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getIntValue(defaultValue);
+  }
+
+  /**
+   * Returns the cell value at the column position as an integer.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public int getIntValue(int colIndex, int defaultValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getIntValue(defaultValue);
   }
 
   /**
@@ -137,6 +297,132 @@ public class SheetRow extends ArrayList<Cell> {
   public long getLongValue(int colIndex) {
     Cell cell = getCell(colIndex);
     return cell.getLongValue();
+  }
+
+  /**
+   * Returns the cell value at the column position as a long.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public long getLongValue(String colIndex, long defaultValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getLongValue(defaultValue);
+  }
+
+  /**
+   * Returns the cell value at the column position as a long.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @param defaultValue
+   *          value for parse error
+   * @return The value of the cell
+   */
+  public long getLongValue(int colIndex, long defaultValue) {
+    Cell cell = getCell(colIndex);
+    return cell.getLongValue(defaultValue);
+  }
+
+  /**
+   * Returns the font RGB value in hex format.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @return the RGB value in hex string format, eg FF0000.
+   */
+  public String getFontColorRGBHex(int colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.getFontColorRGBHex();
+  }
+
+  /**
+   * Returns the font RGB value in hex format.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @return the RGB value in hex string format, eg FF0000.
+   */
+  public String getFontColorRGBHex(String colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.getFontColorRGBHex();
+  }
+
+  /**
+   * Returns if the cell has font color.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @return true if the cell has font color
+   */
+  public boolean hasFontColor(int colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.hasFontColor();
+  }
+
+  /**
+   * Returns if the cell has font color.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @return true if the cell has font color
+   */
+  public boolean hasFontColor(String colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.hasFontColor();
+  }
+
+  /**
+   * Returns the background RGB value in hex format.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @return the RGB value in hex string format, eg FF0000.
+   */
+  public String getBackgroundColorRGBHex(int colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.getBackgroundColorRGBHex();
+  }
+
+  /**
+   * Returns the background RGB value in hex format.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @return the RGB value in hex string format, eg FF0000.
+   */
+  public String getBackgroundColorRGBHex(String colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.getBackgroundColorRGBHex();
+  }
+
+  /**
+   * Returns if the cell has background color.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * 
+   * @return true if the cell has background color
+   */
+  public boolean hasBackgroundColor(int colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.hasBackgroundColor();
+  }
+
+  /**
+   * Returns if the cell has background color.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * 
+   * @return true if the cell has background color
+   */
+  public boolean hasBackgroundColor(String colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.hasBackgroundColor();
   }
 
   /**

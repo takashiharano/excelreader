@@ -20,8 +20,8 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
- * ! This class is a subset of StrUtil on libutil.com.
+ *
+ * # This class is a subset of StrUtil on libutil.com.
  */
 package com.libutil.excelreader;
 
@@ -31,6 +31,74 @@ import java.util.ArrayList;
  * This class implements the string related processing.
  */
 public class ExcelStringUtil {
+
+  /**
+   * Converts a string to a double.
+   *
+   * @param s
+   *          a string value
+   * @return a double value
+   */
+  public static double toDouble(String s) {
+    return toDouble(s, 0.0);
+  }
+
+  /**
+   * Converts a string to a double.
+   *
+   * @param s
+   *          a string value
+   * @param defaultValue
+   *          value for parse error
+   * @return a double value
+   */
+  public static double toDouble(String s, double defaultValue) {
+    if (s == null) {
+      return defaultValue;
+    }
+    s = s.trim();
+    double v = defaultValue;
+    try {
+      v = Double.parseDouble(s);
+    } catch (NumberFormatException e) {
+      // nop
+    }
+    return v;
+  }
+
+  /**
+   * Converts a string to a float.
+   *
+   * @param s
+   *          a string value
+   * @return a float value
+   */
+  public static float toFloat(String s) {
+    return toFloat(s, 0f);
+  }
+
+  /**
+   * Converts a string to a float.
+   *
+   * @param s
+   *          a string value
+   * @param defaultValue
+   *          value for parse error
+   * @return a float value
+   */
+  public static float toFloat(String s, float defaultValue) {
+    if (s == null) {
+      return defaultValue;
+    }
+    s = s.trim();
+    float v = defaultValue;
+    try {
+      v = Float.parseFloat(s);
+    } catch (NumberFormatException e) {
+      // nop
+    }
+    return v;
+  }
 
   /**
    * Converts a string to a signed decimal integer.
