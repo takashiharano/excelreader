@@ -358,7 +358,7 @@ public class SheetRow extends ArrayList<Cell> {
    *
    * @param colIndex
    *          The column position (A-XFD)
-   * @param trueValue
+   * @param trueValues
    *          the values to be true
    * @return true if the value is equal to one of trueValues.
    */
@@ -372,7 +372,7 @@ public class SheetRow extends ArrayList<Cell> {
    *
    * @param colIndex
    *          The column position (1-16384)
-   * @param trueValue
+   * @param trueValues
    *          the values to be true
    * @return true if the value is equal to one of trueValues.
    */
