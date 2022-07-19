@@ -7,6 +7,7 @@ public class Sheet1Values {
   private String itemA;
   private String itemB;
   private String itemC;
+  private String itemD;
 
   public Sheet1Values() {
     super();
@@ -50,6 +51,14 @@ public class Sheet1Values {
 
   public void setItemC(String itemC) {
     this.itemC = itemC;
+  }
+
+  public String getItemD() {
+    return itemD;
+  }
+
+  public void setItemD(String itemD) {
+    this.itemD = itemD;
   }
 
 }

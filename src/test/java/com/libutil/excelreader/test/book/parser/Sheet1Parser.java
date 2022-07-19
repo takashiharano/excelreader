@@ -2,8 +2,8 @@ package com.libutil.excelreader.test.book.parser;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.libutil.excelreader.ExcelLoader;
 import com.libutil.excelreader.Cell;
+import com.libutil.excelreader.ExcelLoader;
 import com.libutil.excelreader.SheetRow;
 import com.libutil.excelreader.SheetValues;
 import com.libutil.excelreader.test.book.model.Sheet1Values;
@@ -23,7 +23,8 @@ public class Sheet1Parser {
   public static final String COL_INDEX_ITEM_A = "C";
   public static final String COL_INDEX_ITEM_B = "D";
   public static final String COL_INDEX_ITEM_C = "E";
-  public static final String LAST_COL_INDEX = "E";
+  public static final String COL_INDEX_ITEM_D = "F";
+  public static final String LAST_COL_INDEX = "F";
 
   /**
    * Parses the Sheet1
@@ -86,6 +87,10 @@ public class Sheet1Parser {
     // COL: ItemC
     String itemC = row.getValue(COL_INDEX_ITEM_C);
     values.setItemC(itemC);
+
+    // COL: ItemD
+    String itemD = row.getValue(COL_INDEX_ITEM_D);
+    values.setItemD(itemD);
 
     return values;
   }

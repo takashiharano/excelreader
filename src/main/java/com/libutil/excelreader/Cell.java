@@ -71,20 +71,6 @@ public class Cell {
   }
 
   /**
-   * Returns the value of the cell as a boolean.
-   *
-   * @param trueValue
-   *          the string that is considered true
-   * @return true if the value is equal to trueValue; false otherwise
-   */
-  public boolean getBooleanValue(String trueValue) {
-    if (value == null) {
-      return false;
-    }
-    return value.equals(trueValue);
-  }
-
-  /**
    * Returns the value of the cell as a double.
    *
    * @return The value of the cell
@@ -170,6 +156,61 @@ public class Cell {
   public long getLongValue(long defaultValue) {
     long v = ExcelStringUtil.toLong(value, defaultValue);
     return v;
+  }
+
+  /**
+   * Returns whether the cell value can be considered true.
+   *
+   * @return A zero value, "FALSE", "", null, are converted to false; any other
+   *         value is converted to true. The value is case-insensitive.
+   */
+  public boolean isTrue() {
+    if (value == null) {
+      return false;
+    }
+    value = value.toUpperCase();
+    if (value.equals("") || value.equals("0") || value.equals("FALSE")) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Returns whether the cell value can be considered true.
+   *
+   * @param trueValue
+   *          the string that is considered true
+   * @return true if the value equals trueValue; false otherwise
+   */
+  public boolean isTrue(String trueValue) {
+    if (value == null) {
+      return false;
+    }
+    return value.equals(trueValue);
+  }
+
+  /**
+   * Returns whether the cell value can be considered true.
+   *
+   * @param trueValues
+   *          the values to be true
+   * @return true if the cell value is equal to one of trueValues.
+   */
+  public boolean isTrue(String[] trueValues) {
+    for (int i = 0; i < trueValues.length; i++) {
+      String v = trueValues[i];
+      if (v == null) {
+        if (value == null) {
+          return true;
+        } else {
+          continue;
+        }
+      }
+      if (v.equals(value)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**

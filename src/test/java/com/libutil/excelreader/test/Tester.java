@@ -37,6 +37,7 @@ public class Tester {
       String itemA = values.getItemA();
       String itemB = values.getItemB();
       String itemC = values.getItemC();
+      String itemD = values.getItemD();
 
       sb.append("No=" + no);
       sb.append("\t");
@@ -47,6 +48,8 @@ public class Tester {
       sb.append("itemB=" + itemB);
       sb.append("\t");
       sb.append("itemC=" + itemC);
+      sb.append("\t");
+      sb.append("itemD=" + itemD);
       sb.append("\n");
     }
 

@@ -92,34 +92,6 @@ public class SheetRow extends ArrayList<Cell> {
   }
 
   /**
-   * Returns the cell value at the column position as an integer.
-   *
-   * @param colIndex
-   *          The column position (A-XFD)
-   * @param trueValue
-   *          the string that is considered true
-   * @return true if the value is equal to trueValue; false otherwise
-   */
-  public boolean getBooleanValue(String colIndex, String trueValue) {
-    Cell cell = getCell(colIndex);
-    return cell.getBooleanValue(trueValue);
-  }
-
-  /**
-   * Returns the cell value at the column position as an integer.
-   *
-   * @param colIndex
-   *          The column position (1-16384)
-   * @param trueValue
-   *          the string that is considered true
-   * @return true if the value is equal to trueValue; false otherwise
-   */
-  public boolean getBooleanValue(int colIndex, String trueValue) {
-    Cell cell = getCell(colIndex);
-    return cell.getBooleanValue(trueValue);
-  }
-
-  /**
    * Returns the cell value at the column position as a double.
    *
    * @param colIndex
@@ -325,6 +297,88 @@ public class SheetRow extends ArrayList<Cell> {
   public long getLongValue(int colIndex, long defaultValue) {
     Cell cell = getCell(colIndex);
     return cell.getLongValue(defaultValue);
+  }
+
+  /**
+   * Returns whether the cell value at the column position can be considered true.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @return A zero value, "FALSE", "", null, are converted to false; any other
+   *         value is converted to true. The value is case-insensitive.
+   */
+  public boolean isTrue(String colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.isTrue();
+  }
+
+  /**
+   * Returns whether the cell value at the column position can be considered true.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @return A zero value, "FALSE", "", null, are converted to false; any other
+   *         value is converted to true. The value is case-insensitive.
+   */
+  public boolean isTrue(int colIndex) {
+    Cell cell = getCell(colIndex);
+    return cell.isTrue();
+  }
+
+  /**
+   * Returns whether the cell value at the column position can be considered true.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @param trueValue
+   *          the string that is considered true
+   * @return true if the value is equal to trueValue; false otherwise
+   */
+  public boolean isTrue(String colIndex, String trueValue) {
+    Cell cell = getCell(colIndex);
+    return cell.isTrue(trueValue);
+  }
+
+  /**
+   * Returns whether the cell value at the column position can be considered true.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @param trueValue
+   *          the string that is considered true
+   * @return true if the value is equal to trueValue; false otherwise
+   */
+  public boolean isTrue(int colIndex, String trueValue) {
+    Cell cell = getCell(colIndex);
+    return cell.isTrue(trueValue);
+  }
+
+  /**
+   * Returns whether the cell value at the column position can be considered true.
+   *
+   * @param colIndex
+   *          The column position (A-XFD)
+   * @param trueValue
+   *          the values to be true
+   * @return true if the value is equal to one of trueValues.
+   */
+  public boolean isTrue(String colIndex, String[] trueValues) {
+    Cell cell = getCell(colIndex);
+    return cell.isTrue(trueValues);
+  }
+
+  /**
+   * Returns whether the cell value at the column position can be considered true.
+   *
+   * @param colIndex
+   *          The column position (1-16384)
+   * @param trueValue
+   *          the values to be true
+   * @return true if the value is equal to one of trueValues.
+   */
+  public boolean isTrue(int colIndex, String[] trueValues) {
+    Cell cell = getCell(colIndex);
+    return cell.isTrue(trueValues);
   }
 
   /**
