@@ -100,12 +100,33 @@ public class ExcelLoader {
    * @param sheetName
    *          The sheet name
    * @param lastRowNum
-   *          Last line to load (1-1048576)
+   *          Last line to load (1-1048576) / 0 for auto detection.
    * @param lastCol
-   *          Last column to load (A-XFD)
+   *          Last column to load (A-XFD) / null for auto detection.
    * @return Two-dimensional array of read contents
    */
   public static SheetValues loadSheetValues(XSSFWorkbook workbook, String sheetName, int lastRowNum, String lastCol) {
+    int lastCellNum = 0;
+    if (lastCol != null) {
+      lastCellNum = ExcelStringUtil.xlscol(lastCol);
+    }
+    return loadSheetValues(workbook, sheetName, lastRowNum, lastCellNum);
+  }
+
+  /**
+   * Reads an Excel sheet and returns it as a two-dimensional array.
+   *
+   * @param workbook
+   *          The Excel workbook object
+   * @param sheetName
+   *          The sheet name
+   * @param lastRowNum
+   *          Last line to load (1-1048576) / 0 for auto detection
+   * @param lastCol
+   *          Last column to load (1-16384) / 0 for auto detection
+   * @return Two-dimensional array of read contents
+   */
+  public static SheetValues loadSheetValues(XSSFWorkbook workbook, String sheetName, int lastRowNum, int lastCellNum) {
     XSSFSheet sheet = workbook.getSheet(sheetName);
     if (sheet == null) {
       throw new RuntimeException("Sheet not found: " + sheetName);
@@ -123,8 +144,7 @@ public class ExcelLoader {
       XSSFRow xssRow = sheet.getRow(i);
 
       if (xssRow == null) {
-        if (lastCol != null) {
-          int lastCellNum = ExcelStringUtil.xlscol(lastCol);
+        if (lastCellNum > 0) {
           for (int j = 0; j < lastCellNum; j++) {
             cell = parseCell(null);
             row.add(cell);
@@ -135,9 +155,8 @@ public class ExcelLoader {
         continue;
       }
 
-      int lastCellNum = xssRow.getLastCellNum();
-      if (lastCol != null) {
-        lastCellNum = ExcelStringUtil.xlscol(lastCol);
+      if (lastCellNum == 0) {
+        lastCellNum = xssRow.getLastCellNum();
       }
 
       int valExists = 0;
