@@ -122,7 +122,7 @@ public class ExcelLoader {
    *          The sheet name
    * @param lastRowNum
    *          Last line to load (1-1048576) / 0 for auto detection
-   * @param lastCol
+   * @param lastCellNum
    *          Last column to load (1-16384) / 0 for auto detection
    * @return Two-dimensional array of read contents
    */
@@ -143,9 +143,11 @@ public class ExcelLoader {
       SheetRow row = new SheetRow();
       XSSFRow xssRow = sheet.getRow(i);
 
+      int lastCellIndex = lastCellNum;
+
       if (xssRow == null) {
         if (lastCellNum > 0) {
-          for (int j = 0; j < lastCellNum; j++) {
+          for (int j = 0; j < lastCellIndex; j++) {
             cell = parseCell(null);
             row.add(cell);
           }
@@ -156,11 +158,11 @@ public class ExcelLoader {
       }
 
       if (lastCellNum == 0) {
-        lastCellNum = xssRow.getLastCellNum();
+        lastCellIndex = xssRow.getLastCellNum();
       }
 
       int valExists = 0;
-      for (int j = 0; j < lastCellNum; j++) {
+      for (int j = 0; j < lastCellIndex; j++) {
         XSSFCell xssFcell = xssRow.getCell(j);
         cell = parseCell(xssFcell);
         row.add(cell);
@@ -189,14 +191,14 @@ public class ExcelLoader {
 
   private static Cell parseCell(XSSFCell xssFcell) {
     Cell cell = new Cell();
-    cell.setXssFcell(xssFcell);
 
     if (xssFcell == null) {
-      cell = new Cell();
       cell.setXssFcell(null);
       cell.setValue("");
       return cell;
     }
+
+    cell.setXssFcell(xssFcell);
 
     HSSFDataFormatter hdf = new HSSFDataFormatter();
     String cellString = hdf.formatCellValue(xssFcell);
