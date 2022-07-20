@@ -26,6 +26,13 @@ package com.libutil.excelreader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFDataFormatter;
 import org.apache.poi.ss.usermodel.CellType;
@@ -36,6 +43,11 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
  * Reads the sheet value of the Excel file.
@@ -198,6 +210,65 @@ public class ExcelLoader {
       rgbHex = rgbHex.substring(2);
     }
     return rgbHex;
+  }
+
+  /**
+   * Returns the sheet names of the book.
+   *
+   * @param path
+   *          the book file path
+   * @return an array of the sheet names
+   */
+  public static String[] getSheetNames(String path) {
+    File file = new File(path);
+    return getSheetNames(file);
+  }
+
+  /**
+   * Returns the sheet names of the book.
+   *
+   * @param file
+   *          the book file
+   * @return an array of the sheet names
+   */
+  public static String[] getSheetNames(File file) {
+    Path path = file.toPath();
+    String[] sheetNames;
+    try (FileSystem fs = FileSystems.newFileSystem(path, null)) {
+      XmlContentHandler xmlContentHandler = new XmlContentHandler();
+      Path xmlPath = fs.getPath("xl/workbook.xml");
+
+      try (InputStream is = Files.newInputStream(xmlPath)) {
+        InputSource source = new InputSource(is);
+        XMLReader parser = XMLReaderFactory.createXMLReader();
+        parser.setContentHandler(xmlContentHandler);
+        parser.parse(source);
+      }
+
+      List<String> names = xmlContentHandler.names;
+      int nameCount = names.size();
+      sheetNames = new String[nameCount];
+      names.toArray(sheetNames);
+    } catch (Exception e) {
+      sheetNames = null;
+    }
+    return sheetNames;
+  }
+
+  private static class XmlContentHandler extends DefaultHandler {
+    private final List<String> names;
+
+    public XmlContentHandler() {
+      names = new ArrayList<>();
+    }
+
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+      if ("sheet".equals(qName)) {
+        String name = attributes.getValue("name");
+        names.add(name);
+      }
+    }
   }
 
 }

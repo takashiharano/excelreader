@@ -54,6 +54,13 @@ public class Tester {
     }
 
     System.out.println(sb.toString());
+
+    System.out.println("Sheet names:");
+    String[] sheetNames = book1.getSheetNames();
+    for (int i = 0; i < sheetNames.length; i++) {
+      String name = sheetNames[i];
+      System.out.println(name);
+    }
   }
 
 }

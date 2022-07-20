@@ -21,6 +21,8 @@ public class Book1 {
   // The model objects of the book/sheet
   private Sheet1ValuesMap sheet1ValuesMap;
 
+  private String[] sheetNames;
+
   public Book1(String bookPath) throws IOException {
     this(bookPath, null);
   }
@@ -72,11 +74,17 @@ public class Book1 {
     Sheet1Parser parser = new Sheet1Parser();
     this.sheet1ValuesMap = parser.parse(workbook);
 
+    this.sheetNames = ExcelLoader.getSheetNames(specFilePath);
+
     workbook.close();
   }
 
   public Sheet1ValuesMap getAllValues() {
     return sheet1ValuesMap;
+  }
+
+  public String[] getSheetNames() {
+    return sheetNames;
   }
 
   private void onLoadStart(String name) {
